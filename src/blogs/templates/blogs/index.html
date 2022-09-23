@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Home{% endblock %}
+
+{% block body %}
+<h1 class="mt-5 display-4"> All Posts</h1>  
+<hr>    
+      
+      <ul class="my-2">
+        {% for x in object_list %}
+        <li> 
+          ({{x.category}})         
+        <a href="{% url 'blogs:post_detail' x.pk %}"> {{x.title}}, </a> 
+        <span class="mx-2">{{x.post_date}},</span> 
+        <i class="mx-2"> Post by : {{ x.author.first_name}} {{ x.author.last_name}},</i>
+        <br>
+        <small>{{ x.snippet}}</small> 
+        <br>
+        {% if user.is_authenticated %}
+            {% if user.id == x.author.id %}
+              <a href="{% url 'blogs:post_update' x.pk %}" class="mx-2">(Edit)</a>
+              <a href="{% url 'blogs:post_delete' x.pk %}" >(Delete)</a>
+            {% endif %}
+        {% endif %}
+        </li>
+        {% endfor %}          
+      </ul> 
+      <!-- testing -->
+      <!-- <h4>categories</h4>
+      {% for item in cat_menu %}
+       <a href="{% url 'blogs:category' item|slugify  %}">{{item}}</a> <br>
+      {% endfor %} -->
+{% endblock %}

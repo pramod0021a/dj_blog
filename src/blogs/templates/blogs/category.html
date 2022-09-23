@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{cats}}{% endblock %}
+
+{% block body %}
+{% if category_posts %}
+<h1 class="my-5 display-4">{{cats}}</h1>
+<a href="{% url 'blogs:home' %}" class="btn btn-primary btn-sm ">Back</a>
+<ul>
+   {% for x in category_posts  %}
+   <li class="my-2">        
+      <a href="{% url 'blogs:post_detail' x.pk %}">{{x.title }}</a> 
+      <i> By  {{ x.author}}</i>  
+
+         {% if user.is_authenticated %}
+      <a href="{% url 'blogs:post_update' x.pk %}" class="mx-2">(Edit)</a>
+      <a href="{% url 'blogs:post_delete' x.pk %}" >(Delete)</a>
+      {% endif %}
+   </li>
+   {% endfor  %}
+</ul>
+   {% else %}
+   <h2>This page does't exist.</h2>
+   {% endif  %}
+
+   {% endblock %}

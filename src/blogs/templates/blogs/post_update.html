@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Update Post{% endblock %}
+
+{% block body %}
+{% if user.is_authenticated %}
+{% if user.id == post.author.id %}
+<div class="form-group w-50 m-auto">
+   <h1 class="my-5 display-4">Update Post</h1>
+<form action="" method="post">
+   {% csrf_token %}
+   {{form.as_p}} 
+   <button type="submit" class="btn btn-primary btn-sm">Update</button>
+   <a href="{% url 'blogs:home' %}" class="btn btn-primary btn-sm ">Back</a>
+</form>
+</div>
+{% else %}
+<h4> You're not allowed here!!(Login required..)</h4>
+{% endif %}
+{% else %}
+<h4> You're not allowed here!!(Login required..)</h4>
+{% endif %}
+
+{% endblock %}

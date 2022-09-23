@@ -1,0 +1,17 @@
+from django.contrib import admin
+from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path('', include('blogs.urls', namespace='blogs')),
+    path('members/', include('django.contrib.auth.urls')),
+    path('members/', include('members.urls', namespace='members')),
+]
+
+if settings.DEBUG:
+    urlpatterns = urlpatterns + \
+        static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns = urlpatterns + \
+        static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

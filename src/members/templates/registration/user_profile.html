@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+<div class="form-group w-50 m-auto">
+   <h1 class="my-5 display-4">User Profile</h1>
+   <!-- {{page_user}} -->
+
+   <div class="card mb-3" >
+    <div class="row g-0">
+      <div class="col-md-4">
+       {% if page_user.profile_pic %}      
+        <img src="{{page_user.profile_pic.url}}" class="img-fluid rounded-start" 
+        alt="..." width="200px">
+       {% else %}
+       <img src="{% static 'images/passport-male.jpg' %}" class="img-fluid rounded-start" 
+        alt="..." width="200px">
+      {% endif %}
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{page_user.user}}</h5>
+          <p class="card-text">             
+             {% if page_user.website_url %}
+             <a href="{{page_user.website_url}}" target="_blank"> Website</a>
+             {% endif %}
+             {% if page_user.facebook_url %}
+             <a href="{{page_user.facebook_url}}" target="_blank">| Facebook</a>
+             {% endif %}
+             {% if page_user.youtube_url %}
+             <a href="{{page_user.youtube_url}}" target="_blank">| Youtube</a>
+             {% endif %}
+             {% if page_user.instagram_url %}
+             <a href="{{page_user.instagram_url}}" target="_blank">| Instagram</a>
+             {% endif %}
+             {% if page_user.twitter_url %}
+             <a href="{{post.author.profile.twitter_url}}" target="_blank">| Twitter</a>
+             {% endif %}
+          </p> <br>
+          <p class="card-text">{{page_user.bio}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="{% url 'blogs:home' %}" class="btn btn-primary btn-sm ">Back</a>
+
+</div>
+{% endblock %}
